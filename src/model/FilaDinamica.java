@@ -3,6 +3,8 @@ package model;
 import interfaces.IEstruturaDinamica;
 
 public class FilaDinamica implements IEstruturaDinamica {
+    private No primeiroNo;
+    private No ultimoNo;
 
     @Override
     public void inserirElemento(Integer elemento) {
