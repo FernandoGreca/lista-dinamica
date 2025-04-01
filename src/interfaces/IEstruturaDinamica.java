@@ -6,7 +6,7 @@ public interface IEstruturaDinamica {
 
     void inserirElemento(Integer elemento);
 
-    void inserirSequencia(Integer elementos);
+    void inserirSequencia(Integer[] elementos);
 
     boolean removerElemento(Integer elemento);
 

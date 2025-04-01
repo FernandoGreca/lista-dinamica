@@ -6,16 +6,31 @@ public class FilaDinamica implements IEstruturaDinamica {
     private No primeiroNo;
     private No ultimoNo;
 
-    @Override
-    public void inserirElemento(Integer elemento) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inserirElemento'");
+    public FilaDinamica(Integer primeiroNo) {
+        this.primeiroNo = new No(primeiroNo);
+        this.ultimoNo = this.primeiroNo;
     }
 
     @Override
-    public void inserirSequencia(Integer elementos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inserirSequencia'");
+    public void inserirElemento(Integer elemento) {
+        No novoNo = new No(elemento);
+        if (estaVazia()) {
+            this.primeiroNo = novoNo;
+            this.ultimoNo = this.primeiroNo;
+            novoNo.setAnt(null);
+            novoNo.setProx(null);
+        } else {
+            this.ultimoNo.setProx(novoNo);
+            novoNo.setAnt(this.ultimoNo);
+            this.ultimoNo = novoNo;
+        }
+    }
+
+    @Override
+    public void inserirSequencia(Integer[] elementos) {
+        for (int i = 0; i < elementos.length; i++) {
+            inserirElemento(elementos[i]);
+        }
     }
 
     @Override
@@ -38,14 +53,15 @@ public class FilaDinamica implements IEstruturaDinamica {
 
     @Override
     public boolean estaCheia() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'estaCheia'");
+        return false;
     }
 
     @Override
     public boolean estaVazia() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'estaVazia'");
+        if (primeiroNo == null) {
+            return true;
+        }
+        return false;
     }
 
     @Override
