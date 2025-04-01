@@ -34,15 +34,24 @@ public class FilaDinamica implements IEstruturaDinamica {
     }
 
     @Override
-    public boolean removerElemento(Integer elemento) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removerElemento'");
+    public void removerElemento(Integer elemento) {
+        if (estaVazia()) {
+            System.out.println("A fila está vazia, não existe elemento(s) para remover");
+        } else {
+            if (this.primeiroNo == this.ultimoNo) {
+                this.primeiroNo = this.primeiroNo.getProx();
+                this.ultimoNo = this.primeiroNo;
+            } else {
+                this.primeiroNo = this.primeiroNo.getProx();
+            }
+        }
     }
 
     @Override
-    public void removerSequencia(Integer elementos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removerSequencia'");
+    public void removerSequencia(Integer[] elementos) {
+        for (int i = 0; i < elementos.length; i++) {
+            removerElemento(elementos[i]);
+        }
     }
 
     @Override
@@ -63,11 +72,23 @@ public class FilaDinamica implements IEstruturaDinamica {
         }
         return false;
     }
-
+// em andamento
     @Override
     public boolean buscarElemento(Integer elemento) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarElemento'");
+        return false;
+        // if (estaVazia()) {
+        //     System.out.println("A fila está vazia, não há elementos para serem buscados");
+        // } else {
+        //     if (this.primeiroNo.getConteudo() == elemento) {
+        //         System.out.println("O" + elemento + "existe na fila");
+        //     } else {
+        //         No atual = this.primeiroNo;
+        //         while (atual.getConteudo() != elemento) {
+        //             this.primeiroNo = this.primeiroNo.getProx();
+        //         }
+                
+        //     }
+        // }
     }
 
     @Override

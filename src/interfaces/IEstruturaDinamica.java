@@ -8,9 +8,9 @@ public interface IEstruturaDinamica {
 
     void inserirSequencia(Integer[] elementos);
 
-    boolean removerElemento(Integer elemento);
+    void removerElemento(Integer elemento);
 
-    void removerSequencia(Integer elementos);
+    void removerSequencia(Integer[] elementos);
 
     void removerTodasOcorrencias(Integer elemento);
 
