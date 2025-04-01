@@ -78,44 +78,81 @@ public class FilaDinamica implements IEstruturaDinamica {
 
     @Override
     public void ordenarDecrescente() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'ordenarDecrescente'");
+        No aux = this.ultimoNo;
+        int contador = 0;
+
+        while (aux.getAnt() != null) {
+            if (aux.getConteudo() > aux.getAnt().getConteudo()) {
+                int aux2 = aux.getConteudo();
+                aux.setConteudo(aux.getAnt().getConteudo());
+                aux.getAnt().setConteudo(aux2);
+                contador++;
+            }
+        }
+
+        if (contador != 0) {
+            ordenarDecrescente();
+        }
     }
 
     @Override
     public int quantidadeElementos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'quantidadeElementos'");
+        No aux = this.primeiroNo;
+        int contador = 0;
+        while (aux != null) {
+            contador++;
+            aux = aux.getProx();
+        }
+        return contador;
     }
 
     @Override
     public void editarElemento(Integer elementoAntigo, Integer elementoNovo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'editarElemento'");
+        No aux = obterElemento(elementoAntigo);
+        if (aux != null) {
+            aux.setConteudo(elementoNovo);
+        } else {
+            System.out.println("Elemento não encontrado.");
+        }
+    }
+
+    public No obterElemento(Integer elemento) {
+        No aux = this.primeiroNo;
+        while (aux != null) {
+            if (aux.getConteudo() == elemento) {
+                return aux;
+            }
+            aux = aux.getProx();
+        }
+        return null;
     }
 
     @Override
     public void limpar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'limpar'");
+        No aux = this.primeiroNo;
+        while (aux != null) {
+            aux.setConteudo(null);
+            aux = aux.getProx();
+        }
     }
 
     @Override
     public void exibir() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'exibir'");
+        No aux = this.primeiroNo;
+        while (aux != null) {
+            System.out.println(aux.getConteudo());
+            aux = aux.getProx();
+        }
     }
 
     @Override
     public No obterPrimeiroElemento() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterPrimeiroElemento'");
+        return this.primeiroNo;
     }
 
     @Override
     public No obterUltimoElemento() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obterUltimoElemento'");
+        return this.ultimoNo;
     }
 
 }
