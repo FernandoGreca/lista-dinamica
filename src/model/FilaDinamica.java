@@ -78,20 +78,29 @@ public class FilaDinamica implements IEstruturaDinamica {
 
     @Override
     public void ordenarDecrescente() {
-        No aux = this.ultimoNo;
-        int contador = 0;
+        if (estaVazia()) {
+            System.out.println("A fila está vazia. Não à o que ordenar.");
+        } else {
+            int contador = 0;
+            No aux = this.ultimoNo;
 
-        while (aux.getAnt() != null) {
-            if (aux.getConteudo() > aux.getAnt().getConteudo()) {
-                int aux2 = aux.getConteudo();
-                aux.setConteudo(aux.getAnt().getConteudo());
-                aux.getAnt().setConteudo(aux2);
-                contador++;
+            while (aux.getAnt() != null) {
+                No auxAnt = aux.getAnt();
+
+                if (aux.getConteudo() > auxAnt.getConteudo()) {
+                    int temp = aux.getConteudo();
+                    aux.setConteudo(auxAnt.getConteudo());
+                    auxAnt.setConteudo(temp);
+
+                    contador++;
+                }
+
+                aux = auxAnt;
             }
-        }
 
-        if (contador != 0) {
-            ordenarDecrescente();
+            if (contador > 0) {
+                ordenarDecrescente();
+            }
         }
     }
 

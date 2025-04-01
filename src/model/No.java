@@ -43,4 +43,9 @@ public class No implements INo {
         this.ant = ant;
     }
 
+    @Override
+    public String toString() {
+        return "No [conteudo=" + conteudo + "]";
+    }
+
 }

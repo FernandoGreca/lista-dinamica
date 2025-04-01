@@ -35,6 +35,11 @@ public class MainFilaDinamica {
         
         // Testando se a fila está vazia
         System.out.println("\nA fila está vazia? " + fila.estaVazia());
+
+        // Ordenando decrescente
+        fila.ordenarDecrescente();
+        System.out.println("\nFila após ordenação decrescente:");
+        fila.exibir();
         
         // Limpando a fila
         fila.limpar();
