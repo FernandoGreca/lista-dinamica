@@ -72,23 +72,23 @@ public class FilaDinamica implements IEstruturaDinamica {
         }
         return false;
     }
-// em andamento
+
     @Override
     public boolean buscarElemento(Integer elemento) {
+        if (estaVazia()) {
+            System.out.println("A fila está vazia, não há elementos para serem buscados.");
+            return false;
+        }
+        No atual = this.primeiroNo;
+        while (atual != null) {
+            if (atual.getConteudo().equals(elemento)) {
+                System.out.println("O elemento " + elemento + " existe na fila.");
+                return true;
+            }
+            atual = atual.getProx();
+        }
+        System.out.println("O elemento " + elemento + " não foi encontrado na fila.");
         return false;
-        // if (estaVazia()) {
-        //     System.out.println("A fila está vazia, não há elementos para serem buscados");
-        // } else {
-        //     if (this.primeiroNo.getConteudo() == elemento) {
-        //         System.out.println("O" + elemento + "existe na fila");
-        //     } else {
-        //         No atual = this.primeiroNo;
-        //         while (atual.getConteudo() != elemento) {
-        //             this.primeiroNo = this.primeiroNo.getProx();
-        //         }
-                
-        //     }
-        // }
     }
 
     @Override
