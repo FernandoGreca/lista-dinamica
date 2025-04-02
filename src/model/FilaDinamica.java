@@ -36,15 +36,44 @@ public class FilaDinamica implements IEstruturaDinamica {
     @Override
     public void removerElemento(Integer elemento) {
         if (estaVazia()) {
-            System.out.println("A fila está vazia, não existe elemento(s) para remover");
-        } else {
-            if (this.primeiroNo == this.ultimoNo) {
-                this.primeiroNo = this.primeiroNo.getProx();
-                this.ultimoNo = this.primeiroNo;
-            } else {
-                this.primeiroNo = this.primeiroNo.getProx();
-            }
+            System.out.println("A fila está vazia, não há elemento para remover.");
+            return;
         }
+        No atual = this.primeiroNo;
+        // Caso seja o primeiro elemento a ser removido
+        if (atual.getConteudo().equals(elemento)) {
+            this.primeiroNo = atual.getProx();
+            if (this.primeiroNo != null) {
+                this.primeiroNo.setAnt(null);
+            } else {
+                this.ultimoNo = null;
+            }
+            System.out.println("O elemento " + elemento + " foi removido.");
+            return;
+        }
+        // Percorre a fila para encontrar o elemento, enquanto o atual não for nulo e
+        // atual não for igual ao elemento pega o próximo
+        while (atual != null && !atual.getConteudo().equals(elemento)) {
+            atual = atual.getProx();
+        }
+        // Se o elemento não foi encontrado
+        if (atual == null) {
+            System.out.println("O elemento " + elemento + " não está na fila.");
+            return;
+        }
+        // Se o elemento for o último nó
+        if (atual == this.ultimoNo) {
+            this.ultimoNo = atual.getAnt();
+            if (this.ultimoNo != null) {
+                this.ultimoNo.setProx(null);
+            }
+        } else {
+            // Caso esteja no meio da fila para corrigir os apontamentos
+            atual.getAnt().setProx(atual.getProx());
+            atual.getProx().setAnt(atual.getAnt());
+        }
+        System.out.println("O elemento " + elemento + " foi removido.");
+
     }
 
     @Override
@@ -56,8 +85,39 @@ public class FilaDinamica implements IEstruturaDinamica {
 
     @Override
     public void removerTodasOcorrencias(Integer elemento) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removerTodasOcorrencias'");
+        if (estaVazia()) {
+            System.out.println("A fila está vazia, não há elementos para remover.");
+            return;
+        }
+        No atual = this.primeiroNo;
+        while (atual != null) {
+            if (atual.getConteudo().equals(elemento)) {
+                // Caso seja o primeiro nó
+                if (atual == this.primeiroNo) {
+                    this.primeiroNo = atual.getProx();
+                    if (this.primeiroNo != null) {
+                        this.primeiroNo.setAnt(null);
+                    } else {
+                        this.ultimoNo = null; // Para caso a fila esteja vazia, tem que atualiza o ultimoNo
+                    }
+                }
+                // Caso seja o último nó
+                else if (atual == this.ultimoNo) {
+                    this.ultimoNo = atual.getAnt();
+                    if (this.ultimoNo != null) {
+                        this.ultimoNo.setProx(null);
+                    }
+                }
+                // Caso seja um nó intermediário
+                else {
+                    atual.getAnt().setProx(atual.getProx());
+                    atual.getProx().setAnt(atual.getAnt());
+                }
+            }
+            // Se atual não for igual ao elemento
+            atual = atual.getProx();
+        }
+        System.out.println("Todas as ocorrências do elemento " + elemento + " foram removidas.");
     }
 
     @Override
@@ -93,14 +153,34 @@ public class FilaDinamica implements IEstruturaDinamica {
 
     @Override
     public void ordenarCrescente() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'ordenarCrescente'");
+        if (estaVazia()) {
+            System.out.println("A fila está vazia, não há elementos para ordenar");
+        } else {
+            int contadorTrocas = 0;
+            No aux = this.primeiroNo;
+
+            while (aux.getProx() != null) {
+                No auxProx = aux.getProx();
+
+                if (aux.getConteudo() > auxProx.getConteudo()) {
+                    int temp = aux.getConteudo();
+                    aux.setConteudo(auxProx.getConteudo());
+                    auxProx.setConteudo(temp);
+                    contadorTrocas++;
+                }
+                aux = auxProx;
+            }
+            // O processo de repete através da recursividade até que o contadorTrocas seja 0, o que significa que está ordenado
+            if (contadorTrocas > 0) {
+                ordenarCrescente();
+            }
+        }
     }
 
     @Override
     public void ordenarDecrescente() {
         if (estaVazia()) {
-            System.out.println("A fila está vazia. Não à o que ordenar.");
+            System.out.println("A fila está vazia. Não há o que ordenar.");
         } else {
             int contador = 0;
             No aux = this.ultimoNo;
