@@ -1,49 +1,158 @@
+import java.util.Scanner;
+
 import model.FilaDinamica;
+import model.No;
 
 public class MainFilaDinamica {
     public static void main(String[] args) {
-        // Criando uma fila dinâmica com um elemento inicial
-        FilaDinamica fila = new FilaDinamica(10);
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("===== INICIALIZAÇÃO DA FILA =====");
+        System.out.print("Digite o valor do primeiro elemento da fila: ");
+        int primeiroElemento = scanner.nextInt();
+        FilaDinamica fila = new FilaDinamica(primeiroElemento);
+        System.out.println("Fila criada com sucesso! O primeiro elemento é: " + primeiroElemento);
+        
+        boolean sair = false;
+        while (!sair) {
+            
+            exibirMenu();
+            
+            int opcao = scanner.nextInt();
+            
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite o elemento a ser inserido: ");
+                    int elemento = scanner.nextInt();
+                    fila.inserirElemento(elemento);
+                    System.out.println("Elemento " + elemento + " inserido com sucesso!");
+                    break;
+                    
+                case 2:
+                    System.out.print("Quantos elementos deseja inserir? ");
+                    int n = scanner.nextInt();
+                    Integer[] elementos = new Integer[n];
+                    System.out.println("Digite os elementos (um por linha):");
+                    for (int i = 0; i < n; i++) {
+                        elementos[i] = scanner.nextInt();
+                    }
+                    fila.inserirSequencia(elementos);
+                    System.out.println(n + " elementos inseridos com sucesso!");
+                    break;
+                    
+                case 3:
+                    System.out.print("Digite o elemento a ser removido: ");
+                    int elementoRemover = scanner.nextInt();
+                    fila.removerElemento(elementoRemover);
+                    break;
+                    
+                case 4:
+                    System.out.print("Quantos elementos deseja remover? ");
+                    int m = scanner.nextInt();
+                    Integer[] elementosRemover = new Integer[m];
+                    System.out.println("Digite os elementos a remover (um por linha):");
+                    for (int i = 0; i < m; i++) {
+                        elementosRemover[i] = scanner.nextInt();
+                    }
+                    fila.removerSequencia(elementosRemover);
+                    System.out.println("Operação de remoção concluída!");
+                    break;
+                    
+                case 5:
+                    System.out.print("Digite o elemento para remover todas ocorrências: ");
+                    int elementoOcorrencias = scanner.nextInt();
+                    fila.removerTodasOcorrencias(elementoOcorrencias);
+                    break;
+                    
+                case 6:
+                    System.out.println("Fila vazia? " + (fila.estaVazia() ? "Sim" : "Não"));
+                    break;
+                    
+                case 7:
+                    System.out.print("Digite o elemento a buscar: ");
+                    int elementoBuscar = scanner.nextInt();
+                    boolean encontrado = fila.buscarElemento(elementoBuscar);
+                    System.out.println("Elemento " + elementoBuscar + " " + (encontrado ? "encontrado" : "não encontrado"));
+                    break;
+                    
+                case 8:
+                    fila.ordenarCrescente();
+                    System.out.println("Fila ordenada em ordem crescente!");
+                    break;
+                    
+                case 9:
+                    fila.ordenarDecrescente();
+                    System.out.println("Fila ordenada em ordem decrescente!");
+                    break;
+                    
+                case 10:
+                    System.out.println("Quantidade de elementos na fila: " + fila.quantidadeElementos());
+                    break;
+                    
+                case 11:
+                    System.out.print("Digite o elemento a ser editado: ");
+                    int antigo = scanner.nextInt();
+                    System.out.print("Digite o novo valor: ");
+                    int novo = scanner.nextInt();
+                    fila.editarElemento(antigo, novo);
+                    System.out.println("Elemento editado com sucesso!");
+                    break;
+                    
+                case 12:
+                    fila.limpar();
+                    System.out.println("Fila limpa com sucesso!");
+                    System.out.print("Digite o valor do novo primeiro elemento: ");
+                    int novoPrimeiro = scanner.nextInt();
+                    fila.inserirElemento(novoPrimeiro);
+                    break;
+                    
+                case 13:
+                    System.out.println("=== ELEMENTOS DA FILA ===");
+                    fila.exibir();
+                    break;
+                    
+                case 14:
+                    No primeiro = fila.obterPrimeiroElemento();
+                    System.out.println("Primeiro elemento: " + 
+                        (primeiro != null ? primeiro.getConteudo() : "A fila está vazia"));
+                    break;
+                    
+                case 15:
+                    No ultimo = fila.obterUltimoElemento();
+                    System.out.println("Último elemento: " + 
+                        (ultimo != null ? ultimo.getConteudo() : "A fila está vazia"));
+                    break;
+                    
+                case 0:
+                    sair = true;
+                    System.out.println("Encerrando o programa...");
+                    break;
+                    
+                default:
+                    System.out.println("Opção inválida! Por favor, digite um número entre 0 e 15.");
+            }
+        }
+        scanner.close();
+    }
 
-        // Inserindo elementos na fila
-        fila.inserirElemento(20);
-        fila.inserirElemento(30);
-        fila.inserirElemento(40);
-        fila.inserirElemento(50);
-        
-        System.out.println("Elementos na fila após inserções:");
-        fila.exibir();
-        
-        // Inserindo uma sequência de elementos
-        Integer[] elementos = {60, 70, 80};
-        fila.inserirSequencia(elementos);
-        
-        System.out.println("\nElementos na fila após inserir sequência:");
-        fila.exibir();
-        
-        // Verificando a quantidade de elementos
-        System.out.println("\nQuantidade de elementos na fila: " + fila.quantidadeElementos());
-        
-        // Editando um elemento
-        fila.editarElemento(30, 35);
-        System.out.println("\nFila após edição do elemento 30 para 35:");
-        fila.exibir();
-        
-        // Obtendo o primeiro e o último elemento
-        System.out.println("\nPrimeiro elemento: " + fila.obterPrimeiroElemento().getConteudo());
-        System.out.println("Último elemento: " + fila.obterUltimoElemento().getConteudo());
-        
-        // Testando se a fila está vazia
-        System.out.println("\nA fila está vazia? " + fila.estaVazia());
-
-        // Ordenando decrescente
-        fila.ordenarDecrescente();
-        System.out.println("\nFila após ordenação decrescente:");
-        fila.exibir();
-        
-        // Limpando a fila
-        fila.limpar();
-        System.out.println("\nFila após limpeza:");
-        fila.exibir();
+    public static void exibirMenu() {
+        System.out.println("\n===== MENU PRINCIPAL =====");
+        System.out.println("1. Inserir elemento");
+        System.out.println("2. Inserir sequência de elementos");
+        System.out.println("3. Remover elemento");
+        System.out.println("4. Remover sequência de elementos");
+        System.out.println("5. Remover todas ocorrências de um elemento");
+        System.out.println("6. Verificar se fila está vazia");
+        System.out.println("7. Buscar elemento");
+        System.out.println("8. Ordenar em ordem crescente");
+        System.out.println("9. Ordenar em ordem decrescente");
+        System.out.println("10. Quantidade de elementos");
+        System.out.println("11. Editar elemento");
+        System.out.println("12. Limpar fila");
+        System.out.println("13. Exibir fila");
+        System.out.println("14. Obter primeiro elemento");
+        System.out.println("15. Obter último elemento");
+        System.out.println("0. Sair");
+        System.out.print("Escolha uma opção: ");
     }
 }

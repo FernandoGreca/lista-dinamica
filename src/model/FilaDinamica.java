@@ -60,19 +60,20 @@ public class FilaDinamica implements IEstruturaDinamica {
         if (atual == null) {
             System.out.println("O elemento " + elemento + " não está na fila.");
             return;
-        }
-        // Se o elemento for o último nó
-        if (atual == this.ultimoNo) {
-            this.ultimoNo = atual.getAnt();
-            if (this.ultimoNo != null) {
-                this.ultimoNo.setProx(null);
-            }
         } else {
-            // Caso esteja no meio da fila para corrigir os apontamentos
-            atual.getAnt().setProx(atual.getProx());
-            atual.getProx().setAnt(atual.getAnt());
+            // Se o elemento for o último nó
+            if (atual == this.ultimoNo) {
+                this.ultimoNo = atual.getAnt();
+                if (this.ultimoNo != null) {
+                    this.ultimoNo.setProx(null);
+                }
+            } else {
+                // Caso esteja no meio da fila para corrigir os apontamentos
+                atual.getAnt().setProx(atual.getProx());
+                atual.getProx().setAnt(atual.getAnt());
+            }
+            System.out.println("O elemento " + elemento + " foi removido.");
         }
-        System.out.println("O elemento " + elemento + " foi removido.");
 
     }
 
@@ -170,7 +171,8 @@ public class FilaDinamica implements IEstruturaDinamica {
                 }
                 aux = auxProx;
             }
-            // O processo de repete através da recursividade até que o contadorTrocas seja 0, o que significa que está ordenado
+            // O processo de repete através da recursividade até que o contadorTrocas seja
+            // 0, o que significa que está ordenado
             if (contadorTrocas > 0) {
                 ordenarCrescente();
             }
@@ -239,11 +241,8 @@ public class FilaDinamica implements IEstruturaDinamica {
 
     @Override
     public void limpar() {
-        No aux = this.primeiroNo;
-        while (aux != null) {
-            aux.setConteudo(null);
-            aux = aux.getProx();
-        }
+        this.primeiroNo = null;
+        this.ultimoNo = null;
     }
 
     @Override
