@@ -107,7 +107,6 @@ public class MainFilaDinamica {
                     int novo = scanner.nextInt();
                     fila.editarElemento(antigo, novo);
                     limparTela();
-                    System.out.println("Elemento editado com sucesso!");
                     break;
 
                 case 12:

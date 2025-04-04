@@ -223,6 +223,7 @@ public class FilaDinamica implements IEstruturaDinamica {
         No aux = obterElemento(elementoAntigo);
         if (aux != null) {
             aux.setConteudo(elementoNovo);
+            System.out.println("Elemento editado com sucesso!");
         } else {
             System.out.println("Elemento não encontrado.");
         }
