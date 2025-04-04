@@ -100,6 +100,7 @@ public class App {
         fila.limpar();
         fila.exibir();
         System.out.println("Está vazia? " + fila.estaVazia());
+        System.out.println("Está cheia? " + fila.estaCheia());
         System.out.println("Quantidade de elementos: " + fila.quantidadeElementos());
         System.out.println("----------------------------------");
 
