@@ -111,11 +111,8 @@ public class MainFilaDinamica {
 
                 case 12:
                     fila.limpar();
-                    System.out.println("Fila limpa com sucesso!");
-                    System.out.print("Digite o valor do novo primeiro elemento: ");
-                    int novoPrimeiro = scanner.nextInt();
-                    fila.inserirElemento(novoPrimeiro);
                     limparTela();
+                    System.out.println("Fila limpa com sucesso!");
                     break;
 
                 case 13:
